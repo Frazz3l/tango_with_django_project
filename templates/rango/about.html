@@ -1,26 +1,37 @@
-<!DOCTYPE html>
-
+{% extends 'rango/base.html' %}
 {% load staticfiles %}
 
-<html>
+{% block title_block %}
+	About
+{% endblock %}
 
-	<head>
-		<title>Rango</title>
-	</head>
-	
-	
-	<body>
-		<h1>Rango says...</h1>
-		<div>
-			Here is the about page<br />
-			<strong>This tutorial has been put together by Fraser Paterson.</strong><br />
-		</div>
-		<div>
-			<a href="/rango/">Index</a><br/>
-			<img width=50% src="{%static 'images/edited.png' %}"
+
+{% block body_block %}
+<h1>About</h1>
+<div>
+	Welcome to the about page.<br/>
+	<strong>This tutorial has been put together by Fraser Paterson.</strong><br />
+</div>
+
+<div>
+	<img width=50% src="{%static 'images/edited.png' %}"
 				alt='Realmbags Logo' />
-			<img width=50% src="{{ MEDIA_URL}}24_pots.png"
+	<img width=50% src="{{ MEDIA_URL}}24_pots.png"
 				alt='Realmbags 24 pot bundle' />
-		</div>
-	</body>
-</html>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
