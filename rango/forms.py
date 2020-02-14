@@ -1,6 +1,5 @@
 from django import forms
 from rango.models import Page, Category
-from rango.forms import CategoryForm
 from django.shortcuts import redirect
 
 class CategoryForm(forms.ModelForm):
@@ -23,18 +22,16 @@ class PageForm(forms.ModelForm):
     varsiews = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model = Page
-        33 exclude = ('category',)
+        exclude = ('category',)
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('url')
+        if url and not url.startswith('http://'):
+            url = f'http://{url}'
+            cleaned_data['url'] = url
+        return cleaned_data
+
+    
 
 
-def add_category(request):
-    form = CategoryForm()
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
 
-        return redirect('/rango/')
-    else:
-        print(form.errors)
-
-    return render(request, 'rango/add_category.html', {'form': form})
