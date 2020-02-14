@@ -1,5 +1,7 @@
 from django import forms
 from rango.models import Page, Category
+from rango.forms import CategoryForm
+from django.shortcuts import redirect
 
 class CategoryForm(forms.ModelForm):
     
@@ -22,3 +24,17 @@ class PageForm(forms.ModelForm):
     class Meta:
         model = Page
         33 exclude = ('category',)
+
+
+def add_category(request):
+    form = CategoryForm()
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
+        return redirect('/rango/')
+    else:
+        print(form.errors)
+
+    return render(request, 'rango/add_category.html', {'form': form})
